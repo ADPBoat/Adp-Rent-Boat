@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ADP Boat — Location de bateaux semi‑rigides</title>
+  <meta name="description" content="Location de bateaux semi‑rigides haut de gamme — Méditerranée. Réservez votre sortie dès 550 € / jour." />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --txt: #0a0a0a;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --card: #fafafa;
+      --radius: 16px;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.06);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,.12);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, system-ui, "Apple Color Emoji","Segoe UI Emoji";color:var(--txt);background:var(--bg)}
+    a{color:inherit}
+    img{max-width:100%;display:block}
+
+    .container{max-width:1200px;margin:0 auto;padding:0 24px}
+    .section{padding:80px 0}
+    @media (min-width:1024px){.section{padding:110px 0}}
+    .grid{display:grid;gap:24px}
+
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.7);backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand-badge{width:32px;height:32px;border-radius:12px;background:linear-gradient(135deg,#ff6600,#7d7d7d)}
+    .nav-links{display:none;gap:28px;color:#374151}
+    .nav-cta{display:flex;gap:10px}
+    .btn{border:1px solid var(--line);padding:10px 16px;border-radius:999px;background:#fff;font-size:14px}
+    .btn:hover{border-color:#ff6600}
+    .btn-primary{background:#ff6600;color:#fff;border-color:#ff6600}
+    .btn-primary:hover{background:#e65c00}
+    .menu-btn{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:8px}
+    @media (min-width:900px){
+      .nav-links{display:flex}
+      .menu-btn{display:none}
+    }
+
+    .hero{position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:-20% -20% 0 -20%;background:radial-gradient(60% 50% at 50% -10%, #eef0f3 0%, transparent 60%);pointer-events:none}
+    .hero-grid{display:grid;gap:32px;align-items:center}
+    @media (min-width:1000px){.hero-grid{grid-template-columns:1.05fr .95fr}}
+    .display{font-weight:700;letter-spacing:-.02em;line-height:1.05;margin:0}
+    .display.xl{font-size:40px}
+    @media (min-width:640px){.display.xl{font-size:56px}}
+    @media (min-width:1024px){.display.xl{font-size:64px}}
+    .lead{color:#374151;font-size:18px;max-width:620px}
+    .mock{aspect-ratio:16/10;border-radius:24px;background:linear-gradient(135deg,#0b0b0b,#5c5c5c);box-shadow:var(--shadow-lg)}
+    .floating{position:absolute;bottom:-12px;left:-12px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:var(--shadow-sm)}
+
+    .card{border:1px solid var(--line);border-radius:24px;background:#fff}
+    .card.pad{padding:24px}
+    .card:hover{box-shadow:var(--shadow-lg)}
+    .pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:8px 14px;border:1px solid var(--line);font-size:13px;color:#374151}
+
+    .features{grid-template-columns:repeat(1,1fr)}
+    @media (min-width:820px){.features{grid-template-columns:repeat(3,1fr)}}
+    .feature h3{margin:0 0 8px 0;font-size:18px}
+    .muted{color:var(--muted);font-size:14px}
+
+    .fleet{grid-template-columns:repeat(1,1fr)}
+    @media (min-width:900px){.fleet{grid-template-columns:repeat(2,1fr)}}
+    .thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#1f2937,#6b7280)}
+    .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;font-size:14px;color:#ff6600}
+
+    .pricing{grid-template-columns:repeat(1,1fr)}
+    @media (min-width:1000px){.pricing{grid-template-columns:repeat(3,1fr)}}
+    .price{font-size:34px;font-weight:700}
+    .featured{border-color:#ff6600;box-shadow:var(--shadow-lg)}
+
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    @media (min-width:900px){.gallery{grid-template-columns:repeat(4,1fr)}}
+    .square{aspect-ratio:1/1;border-radius:18px;background:linear-gradient(135deg,#ff6600,#555)}
+
+    .field{width:100%;border:1px solid var(--line);border-radius:14px;padding:12px 14px;font-size:14px}
+    .field:focus{outline:none;box-shadow:0 0 0 3px rgba(0,0,0,.08)}
+    textarea.field{min-height:120px;resize:vertical}
+
+    details{border-top:1px solid var(--line)}
+    summary{list-style:none;display:flex;align-items:center;justify-content:space-between;padding:16px 24px;cursor:pointer}
+    summary::-webkit-details-marker{display:none}
+
+    footer{border-top:1px solid var(--line)}
+
+    .mobile-panel{position:fixed;inset:64px 0 0 0;background:#fff;border-top:1px solid var(--line);transform:translateY(-8px);opacity:0;pointer-events:none;transition:.25s ease}
+    .mobile-panel.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .mobile-links{display:grid;padding:18px}
+    .mobile-links a{padding:12px 10px;border-radius:12px}
+    .mobile-links a:hover{background:#f4f4f5}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden></div>
+        <strong>ADP Boat</strong>
+      </div>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#flotte">Flotte</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#experience">Expérience</a>
+        <a href="#galerie">Galerie</a>
+        <a href="#reservation">Réserver</a>
+      </nav>
+      <div class="nav-cta">
+        <a class="btn" href="#flotte">Voir la flotte</a>
+        <a class="btn btn-primary" href="#reservation">Réserver</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Ouvrir le menu">☰</button>
+      </div>
+    </div>
+    <div id="mobilePanel" class="mobile-panel" aria-hidden="true">
+      <div class="mobile-links">
+        <a href="#flotte" onclick="closeMenu()">Flotte</a>
+        <a href="#tarifs" onclick="closeMenu()">Tarifs</a>
+        <a href="#experience" onclick="closeMenu()">Expérience</a>
+        <a href="#galerie" onclick="closeMenu()">Galerie</a>
+        <a href="#reservation" onclick="closeMenu()">Réserver</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero section">
+    <div class="container hero-grid">
+      <div>
+        <h1 class="display xl">Louez un semi‑rigide <span style="color:#6b7280">haut de gamme</span></h1>
+        <p class="lead">Une expérience marine élégante, simple et puissante — inspirée par les meilleurs standards de design. Départs Méditerranée, bateaux 7,5–8,5 m jusqu’à 300 CV.</p>
+        <div style="display:flex;gap:12px;margin-top:24px">
+          <a class="btn btn-primary" href="#reservation">Réserver votre date</a>
+          <a class="btn" href="#flotte">Voir la flotte</a>
+        </div>
+        <p class="muted" style="margin-top:12px">À partir de <strong style="color:#ff6600">550 € / jour</strong></p>
+      </div>
+      <div style="position:relative">
+        <div class="mock"></div>
+        <div class="floating" aria-hidden>
+          <div style="font-weight:600;font-size:14px">Capacité confort</div>
+          <div class="muted" style="font-size:12px">Jusqu’à 10 personnes • V8 300 CV</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <div class="container grid features">
+      <div class="card pad feature">
+        <h3>Puissance & contrôle</h3>
+        <p class="muted">Coques alu & hypalon, moteurs jusqu’à 300 CV pour une navigation sûre et souple.</p>
+      </div>
+      <div class="card pad feature">
+        <h3>Confort premium</h3>
+        <p class="muted">Bain de soleil, douchette, plateformes, tauds d’ombre — tout est pensé pour la journée parfaite.</p>
+      </div>
+      <div class="card pad feature">
+        <h3>Options sur mesure</h3>
+        <p class="muted">E‑Foil, scooter sous‑marin, structures gonflables — ajoutez du fun à votre sortie.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="flotte" class="section">
+    <div class="container">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px">
+        <h2 class="display" style="font-size:32px">Notre flotte</h2>
+        <a class="btn" href="#reservation">Demander un devis</a>
+      </div>
+      <div class="grid fleet">
+        <article class="card">
+          <div class="thumb" role="img" aria-label="ADP Boat TRITON 8.5 – visuel"></div>
+          <div class="pad" style="padding:24px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <h3 style="margin:0;font-size:20px">ADP Boat TRITON 8.5</h3>
+              <div class="muted">dès <strong style="color:#ff6600">550 €</strong> / jour</div>
+            </div>
+            <div class="list" style="margin-top:12px">
+              <div>8,5 m</div>
+              <div>Mercury 300 V8</div>
+              <div>10 pers max</div>
+              <div>Plateforme arrière</div>
+              <div>Douchette</div>
+              <div>Taud d’ombre</div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:18px">
+              <a class="btn btn-primary" href="#reservation">Réserver</a>
+              <a class="btn" href="#tarifs">Voir tarifs</a>
+            </div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" role="img" aria-label="ADP Boat ORION 7.5 – visuel"></div>
+          <div class="pad" style="padding:24px">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <h3 style="margin:0;font-size:20px">ADP Boat ORION 7.5</h3>
+              <div class="muted">dès <strong style="color:#ff6600">520 €</strong> / jour</div>
+            </div>
+            <div class="list" style="margin-top:12px">
+              <div>7,5 m</div>
+              <div>Mercury 250 V8</div>
+              <div>9 pers max</div>
+              <div>Bain de soleil</div>
+              <div>Taud d’ombre</div>
+              <div>Glacière</div>
+            </div>
+            <div style="display:flex;gap:10px;margin-top:18px">
+              <a class="btn btn-primary" href="#reservation">Réserver</a>
+              <a class="btn" href="#tarifs">Voir tarifs</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="tarifs" class="section" style="background:var(--card)">
+    <div class="container">
+      <h2 class="display" style="font-size:32px;margin-bottom:8px">Tarifs transparents</h2>
+      <p class="muted">Prix indicatifs basse saison — ajustables selon date, lieu et options.</p>
+      <div class="grid pricing" style="margin-top:24px">
+        <div class="card pad">
+          <h3 style="margin-top:0">Journée classique</h3>
+          <div class="price">550 € <span class="muted" style="font-size:14px;font-weight:400">/ jour</span></div>
+          <ul class="muted" style="margin:12px 0 0 18px">
+            <li>Location 8 h</li>
+            <li>Carburant non inclus</li>
+            <li>Briefing sécurité</li>
+            <li>Assistance téléphonique</li>
+          </ul>
+          <a class="btn" style="margin-top:16px;display:inline-block" href="#reservation">Réserver</a>
+        </div>
+        <div class="card pad featured">
+          <h3 style="margin-top:0">Journée + Fun</h3>
+          <div class="price">750 € <span class="muted" style="font-size:14px;font-weight:400">/ jour</span></div>
+          <ul class="muted" style="margin:12px 0 0 18px">
+            <li>Location 8 h</li>
+            <li>+ Structures gonflables</li>
+            <li>+ Douchette & glacière</li>
+            <li>Carburant non inclus</li>
+          </ul>
+          <a class="btn btn-primary" style="margin-top:16px;display:inline-block" href="#reservation">Choisir</a>
+        </div>
+        <div class="card pad">
+          <h3 style="margin-top:0">Journée Premium</h3>
+          <div class="price">990 € <span class="muted" style="font-size:14px;font-weight:400">/ jour</span></div>
+          <ul class="muted" style="margin:12px 0 0 18px">
+            <li>Location 8 h</li>
+            <li>+ E‑Foil d’initiation</li>
+            <li>+ Scooter sous‑marin</li>
+            <li>Pack photo (drone)</li>
+          </ul>
+          <a class="btn" style="margin-top:16px;display:inline-block" href="#reservation">Demander un devis</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="card pad" style="text-align:center;padding:40px">
+        <h3 class="display" style="font-size:28px;margin:0">L’expérience d’une journée, le souvenir pour toujours.</h3>
+        <p class="muted" style="margin:10px auto 0;max-width:720px">Éloignez‑vous des plages bondées et trouvez votre crique parfaite. Notre équipe prépare le bateau, vous profitez.</p>
+        <a class="btn btn-primary" style="margin-top:18px;display:inline-block" href="#reservation">Je réserve</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="galerie" class="section">
+    <div class="container">
+      <h2 class="display" style="font-size:32px;margin-bottom:8px">Galerie</h2>
+      <p class="muted">Remplacez ces vignettes par vos photos (port, mer, détails du bateau).</p>
+      <div class="grid gallery" style="margin-top:24px">
+        <div class="square" role="img" aria-label="Photo 1"></div>
+        <div class="square" role="img" aria-label="Photo 2"></div>
+        <div class="square" role="img" aria-label="Photo 3"></div>
+        <div class="square" role="img" aria-label="Photo 4"></div>
+        <div class="square" role="img" aria-label="Photo 5"></div>
+        <div class="square" role="img" aria-label="Photo 6"></div>
+        <div class="square" role="img" aria-label="Photo 7"></div>
+        <div class="square" role="img" aria-label="Photo 8"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservation" class="section">
+    <div class="container" style="max-width:900px">
+      <div class="card pad">
+        <h2 class="display" style="font-size:32px;margin-bottom:6px">Demande de réservation</h2>
+        <p class="muted">Réponse sous 24 h en saison. Les chiens ne sont pas acceptés à bord. Capacité confort 8–10 personnes selon modèle.</p>
+        <form id="resForm" style="margin-top:20px" onsubmit="return submitForm(event)">
+          <div class="grid" style="grid-template-columns:1fr;gap:12px">
+            <div class="grid" style="grid-template-columns:1fr;gap:12px">
+              <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px">
+                <input required class="field" type="text" name="nom" placeholder="Nom et prénom" />
+                <input required class="field" type="email" name="email" placeholder="Email" />
+              </div>
+              <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:12px">
+                <input required class="field" type="tel" name="tel" placeholder="Téléphone" />
+                <input required class="field" type="date" name="date" />
+                <input class="field" type="text" name="lieu" placeholder="Lieu de départ (ex. Cannes)" />
+              </div>
+            </div>
+
+            <div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px">
+              <label class="pill"><input type="checkbox" name="skipper" style="accent-color:#ff6600"> Skipper</label>
+              <label class="pill"><input type="checkbox" name="efoil" style="accent-color:#ff6600"> E‑Foil</label>
+              <label class="pill"><input type="checkbox" name="scooter" style="accent-color:#ff6600"> Scooter sous‑marin</label>
+              <label class="pill"><input type="checkbox" name="gonflables" style="accent-color:#ff6600"> Structures gonflables</label>
+            </div>
+
+            <textarea class="field" name="message" placeholder="Précisions (horaires, nombre de personnes, demandes spécifiques…)"></textarea>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+              <p class="muted" style="font-size:12px">En envoyant, vous acceptez nos <a href="#" style="text-decoration:underline">conditions</a> et notre <a href="#" style="text-decoration:underline">politique de confidentialité</a>.</p>
+              <button class="btn btn-primary" type="submit">Envoyer la demande</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container" style="max-width:1000px">
+      <h2 class="display" style="font-size:32px;margin-bottom:8px">Questions fréquentes</h2>
+      <div class="card" style="overflow:hidden">
+        <details open>
+          <summary><span>Quel est l’âge minimum pour louer ?</span><span>＋</span></summary>
+          <div style="padding:0 24px 18px" class="muted">Le pilote doit être majeur et titulaire d’un permis côtier valable en France. Une pièce d’identité est requise.</div>
+        </details>
+        <details>
+          <summary><span>Le carburant est‑il inclus ?</span><span>＋</span></summary>
+          <div style="padding:0 24px 18px" class="muted">Non. Le plein départ est effectué, et vous refaites le plein au retour ou nous le facturons au réel.</div>
+        </details>
+        <details>
+          <summary><span>Les chiens sont‑ils acceptés ?</span><span>＋</span></summary>
+          <div style="padding:0 24px 18px" class="muted">Non, pour préserver flotteurs, selleries et confort des prochains passagers.</div>
+        </details>
+        <details>
+          <summary><span>Quelle est la capacité ?</span><span>＋</span></summary>
+          <div style="padding:0 24px 18px" class="muted">Capacité légale jusqu’à 12 selon modèle, mais nous recommandons 8–10 personnes pour un confort optimal.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container" style="padding:32px 0;display:flex;gap:18px;flex-wrap:wrap;align-items:center;justify-content:space-between;font-size:14px;color:#374151">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="brand-badge" aria-hidden></div>
+        <strong>ADP Boat</strong>
+      </div>
+      <div>
+        Contact : <a href="mailto:contact@adp-boat.com" style="text-decoration:underline">contact@adp-boat.com</a> • +33 6 00 00 00 00<br>
+        © <span id="y"></span> ADP Boat — Tous droits réservés.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const menuBtn = document.getElementById('menuBtn');
+    const mobilePanel = document.getElementById('mobilePanel');
+    menuBtn.addEventListener('click', () => {
+      mobilePanel.classList.toggle('open');
+      mobilePanel.setAttribute('aria-hidden', mobilePanel.classList.contains('open') ? 'false' : 'true');
+    });
+    function closeMenu(){ mobilePanel.classList.remove('open'); mobilePanel.setAttribute('aria-hidden','true'); }
+
+    function submitForm(e){
+      e.preventDefault();
+      const data = new FormData(document.getElementById('resForm'));
+      const opts = ['skipper','efoil','scooter','gonflables'].filter(k=>data.get(k)==='on').join(', ') || 'aucune';
+      alert(
+        `Demande envoyée !\n\nNom: ${data.get('nom')}\nEmail: ${data.get('email')}\nTéléphone: ${data.get('tel')}\nDate: ${data.get('date')}\nLieu: ${data.get('lieu')||'-'}\nOptions: ${opts}\n\nMessage: ${data.get('message')||'-'}`
+      );
+      return false;
+    }
+  </script>
+</body>
+</html>
